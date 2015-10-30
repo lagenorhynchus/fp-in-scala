@@ -107,22 +107,27 @@ object List { // `List` companion object. Contains functions for creating and wo
   def append2[A](a1: List[A], a2: List[A]): List[A] = sys.error("todo")
 
   // Exercise 15
-  def concat[A](ls: List[List[A]]): List[A] = sys.error("todo")
+  def concat[A](ls: List[List[A]]): List[A] =
+    foldRight(ls, Nil: List[A])(append)
 
   // Exercise 16
   def add1(ns: List[Int]): List[Int] = sys.error("todo")
 
   // Exercise 17
-  def doubleToString(ns: List[Double]): List[Double] = sys.error("todo")
+  def doubleToString(ns: List[Double]): List[String] =
+    foldRight(ns, Nil: List[String])((n, acc) => Cons(n.toString, acc))
 
   // Exercise 18
-  def map[A,B](l: List[A])(f: A => B): List[B] = sys.error("todo")
+  def map[A,B](l: List[A])(f: A => B): List[B] =
+    foldRight(l, Nil: List[B])((x, acc) => Cons(f(x), acc))
 
   // Exercise 19
-  def filter[A](l: List[A])(f: A => Boolean): List[A] = sys.error("todo")
+  def filter[A](l: List[A])(f: A => Boolean): List[A] =
+    foldRight(l, Nil: List[A])((x, acc) => if (f(x)) Cons(x, acc) else acc)
 
   // Exercise 20
-  def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] = sys.error("todo")
+  def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] =
+    concat(map(l)(f))
 
   // Exercise 21
   def filter2[A](l: List[A])(f: A => Boolean): List[A] = sys.error("todo")
