@@ -50,16 +50,36 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
   // Exercise 2
-  def tail[A](l: List[A]): List[A] = sys.error("todo")
+  def tail[A](l: List[A]): List[A] =
+    l match {
+      case Nil => Nil
+      case Cons(_, xs) => xs
+    }
 
   // Exercise 3
-  def setHead[A](l: List[A], h: A): List[A] = sys.error("todo")
+  def setHead[A](l: List[A], h: A): List[A] =
+    l match {
+      case Nil => Cons(h, Nil)
+      case Cons(_, xs) => Cons(h, xs)
+    }
 
   // Exercise 4
-  def drop[A](l: List[A], n: Int): List[A] = sys.error("todo")
+  @annotation.tailrec
+  def drop[A](l: List[A], n: Int): List[A] =
+    if (n <= 0) l
+    else l match {
+      case Nil => Nil
+      case Cons(_, xs) => drop(xs, n - 1)
+    }
 
   // Exercise 5
-  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = sys.error("todo")
+  @annotation.tailrec
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] =
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) if f(x) => dropWhile(xs, f)
+      case _ => l
+    }
 
   // Exercise 6
   def init[A](l: List[A]): List[A] = sys.error("todo")
@@ -108,7 +128,7 @@ object List { // `List` companion object. Contains functions for creating and wo
   def filter2[A](l: List[A])(f: A => Boolean): List[A] = sys.error("todo")
 
   // Exercise 22
-  def addEach(a1: List[Int], List[Int]): List[Int] = sys.error("todo")
+  def addEach(a1: List[Int], a2: List[Int]): List[Int] = sys.error("todo")
 
   // Exercise 23
   def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] = sys.error("todo")
