@@ -130,10 +130,16 @@ object List { // `List` companion object. Contains functions for creating and wo
     concat(map(l)(f))
 
   // Exercise 21
-  def filter2[A](l: List[A])(f: A => Boolean): List[A] = sys.error("todo")
+  def filter2[A](l: List[A])(f: A => Boolean): List[A] =
+    flatMap(l)(x => if (f(x)) List(x) else Nil)
 
   // Exercise 22
-  def addEach(a1: List[Int], a2: List[Int]): List[Int] = sys.error("todo")
+  def addEach(a1: List[Int], a2: List[Int]): List[Int] =
+    (a1, a2) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(x, xs), Cons(y, ys)) => Cons(x + y, addEach(xs, ys))
+    }
 
   // Exercise 23
   def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] = sys.error("todo")
