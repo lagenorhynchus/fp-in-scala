@@ -113,19 +113,23 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldLeft(l, List[A]())((acc, x) => Cons(x, acc))
 
   // Exercise 13
-  def foldLeft2[A, B](l: List[A], z: B)(f: (B, A) => B): B = sys.error("todo")
+  def foldLeft2[A, B](l: List[A], z: B)(f: (B, A) => B): B =
+    foldRight(reverse(l), z)((x, y) => f(y, x))
 
-  def foldRight2[A, B](l: List[A], z: B)(f: (A, B) => B): B = sys.error("todo")
+  def foldRight2[A, B](l: List[A], z: B)(f: (A, B) => B): B =
+    foldLeft(reverse(l), z)((x, y) => f(y, x))
 
   // Exercise 14
-  def append2[A](a1: List[A], a2: List[A]): List[A] = sys.error("todo")
+  def append2[A](a1: List[A], a2: List[A]): List[A] =
+    foldRight(a1, a2)(Cons(_, _))
 
   // Exercise 15
   def concat[A](ls: List[List[A]]): List[A] =
     foldRight(ls, Nil: List[A])(append)
 
   // Exercise 16
-  def add1(ns: List[Int]): List[Int] = sys.error("todo")
+  def add1(ns: List[Int]): List[Int] =
+    foldRight(ns, List[Int]())((x, xs) => Cons(x + 1, xs))
 
   // Exercise 17
   def doubleToString(ns: List[Double]): List[String] =
@@ -156,7 +160,12 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
   // Exercise 23
-  def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] = sys.error("todo")
+  def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] =
+    (as, bs) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(x, xs), Cons(y, ys)) => Cons(f(x, y), zipWith(xs, ys)(f))
+    }
 
   // Exercise 24
   def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = sys.error("todo")
