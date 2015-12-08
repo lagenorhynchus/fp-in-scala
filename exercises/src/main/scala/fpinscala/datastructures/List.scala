@@ -82,7 +82,12 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
   // Exercise 6
-  def init[A](l: List[A]): List[A] = sys.error("todo")
+  def init[A](l: List[A]): List[A] =
+    l match {
+      case Nil => Nil
+      case Cons(_, Nil) => Nil
+      case Cons(x, xs) => Cons(x, init(xs))
+    }
 
   // Exercise 9
   def length[A](l: List[A]): Int = sys.error("todo")
@@ -107,28 +112,39 @@ object List { // `List` companion object. Contains functions for creating and wo
   def append2[A](a1: List[A], a2: List[A]): List[A] = sys.error("todo")
 
   // Exercise 15
-  def concat[A](ls: List[List[A]]): List[A] = sys.error("todo")
+  def concat[A](ls: List[List[A]]): List[A] =
+    foldRight(ls, Nil: List[A])(append)
 
   // Exercise 16
   def add1(ns: List[Int]): List[Int] = sys.error("todo")
 
   // Exercise 17
-  def doubleToString(ns: List[Double]): List[Double] = sys.error("todo")
+  def doubleToString(ns: List[Double]): List[String] =
+    foldRight(ns, Nil: List[String])((n, acc) => Cons(n.toString, acc))
 
   // Exercise 18
-  def map[A,B](l: List[A])(f: A => B): List[B] = sys.error("todo")
+  def map[A,B](l: List[A])(f: A => B): List[B] =
+    foldRight(l, Nil: List[B])((x, acc) => Cons(f(x), acc))
 
   // Exercise 19
-  def filter[A](l: List[A])(f: A => Boolean): List[A] = sys.error("todo")
+  def filter[A](l: List[A])(f: A => Boolean): List[A] =
+    foldRight(l, Nil: List[A])((x, acc) => if (f(x)) Cons(x, acc) else acc)
 
   // Exercise 20
-  def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] = sys.error("todo")
+  def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] =
+    concat(map(l)(f))
 
   // Exercise 21
-  def filter2[A](l: List[A])(f: A => Boolean): List[A] = sys.error("todo")
+  def filter2[A](l: List[A])(f: A => Boolean): List[A] =
+    flatMap(l)(x => if (f(x)) List(x) else Nil)
 
   // Exercise 22
-  def addEach(a1: List[Int], a2: List[Int]): List[Int] = sys.error("todo")
+  def addEach(a1: List[Int], a2: List[Int]): List[Int] =
+    (a1, a2) match {
+      case (Nil, _) => Nil
+      case (_, Nil) => Nil
+      case (Cons(x, xs), Cons(y, ys)) => Cons(x + y, addEach(xs, ys))
+    }
 
   // Exercise 23
   def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] = sys.error("todo")
