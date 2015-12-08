@@ -90,15 +90,22 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
   // Exercise 9
-  def length[A](l: List[A]): Int = sys.error("todo")
+  def length[A](l: List[A]): Int =
+    foldRight(l, 0)((_, acc) => acc + 1)
 
   // Exercise 10
-  def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B = sys.error("todo")
+  def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B =
+    l match {
+      case Nil => z
+      case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
+    }
 
   // Exercise 11
-  def sum3(ns: List[Int]): Int = sys.error("todo")
+  def sum3(ns: List[Int]): Int =
+    foldLeft(ns, 0)(_ + _)
 
-  def product3(ns: List[Double]): Double = sys.error("todo")
+  def product3(ns: List[Double]): Double =
+    foldLeft(ns, 1.0)(_ * _)
 
   // Exercise 12
   def reverse[A](l: List[A]): List[A] = sys.error("todo")
