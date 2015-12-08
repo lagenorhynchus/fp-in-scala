@@ -94,6 +94,7 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldRight(l, 0)((_, acc) => acc + 1)
 
   // Exercise 10
+  @annotation.tailrec
   def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B =
     l match {
       case Nil => z
@@ -108,7 +109,8 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldLeft(ns, 1.0)(_ * _)
 
   // Exercise 12
-  def reverse[A](l: List[A]): List[A] = sys.error("todo")
+  def reverse[A](l: List[A]): List[A] =
+    foldLeft(l, List[A]())((acc, x) => Cons(x, acc))
 
   // Exercise 13
   def foldLeft2[A, B](l: List[A], z: B)(f: (B, A) => B): B = sys.error("todo")
