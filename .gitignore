@@ -16,6 +16,10 @@ __pycache__/
 *.o
 .dist-buildwrapper/
 
+# Scala
+.ensime
+.ensime_cache/
+
 # Erlang
 *.beam
 
