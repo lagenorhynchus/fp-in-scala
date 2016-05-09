@@ -168,5 +168,19 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
   // Exercise 24
-  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = sys.error("todo")
+  @annotation.tailrec
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
+    sup match {
+      case Nil => sub == Nil
+      case _ if startsWith(sup, sub) => true
+      case Cons(h, t) => hasSubsequence(t, sub)
+    }
+
+  @annotation.tailrec
+  private def startsWith[A](l: List[A], prefix: List[A]): Boolean =
+    (l, prefix) match {
+      case (_, Nil) => true
+      case (Cons(h1, t1), Cons(h2, t2)) if h1 == h2 => startsWith(t1, t2)
+      case _ => false
+    }
 }
