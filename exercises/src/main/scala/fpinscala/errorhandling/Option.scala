@@ -47,7 +47,14 @@ object Option {
     else Some(xs.sum / xs.length)
 
   // Exercise 2
-  def variance(xs: Seq[Double]): Option[Double] = sys.error("todo")
+  def variance(xs: Seq[Double]): Option[Double] = {
+    val len = xs.length.toDouble
+    if (len == 0) None
+    else {
+      val sigma = xs.sum / len
+      Some(xs.map(x => Math.pow(x - sigma, 2)).sum / len)
+    }
+  }
 
   // Exercise 3
   def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = sys.error("todo")
