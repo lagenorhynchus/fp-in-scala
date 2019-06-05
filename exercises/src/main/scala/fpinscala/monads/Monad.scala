@@ -6,6 +6,7 @@ import testing._
 import parallelism._
 import state._
 import parallelism.Par._
+import language.higherKinds
 
 trait Functor[F[_]] {
   def map[A,B](fa: F[A])(f: A => B): F[B]
@@ -88,4 +89,3 @@ object Reader {
     override def flatMap[A,B](st: Reader[R,A])(f: A => Reader[R,B]): Reader[R,B] = ???
   }
 }
-

@@ -1,6 +1,7 @@
 package fpinscala.iomonad
 
 import language.higherKinds // Disable warnings for type constructor polymorphism
+import language.implicitConversions
 
 trait Functor[F[_]] {
   def map[A,B](a: F[A])(f: A => B): F[B]
@@ -69,4 +70,3 @@ trait Monadic[F[_],A] {
   def replicateM(n: Int) = F.replicateM(n)(a)
   def replicateM_(n: Int) = F.replicateM_(n)(a)
 }
-
