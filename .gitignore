@@ -1,37 +1,17 @@
-# Java
-*.class
-*.jar
-*.war
-*.ear
+### https://raw.github.com/github/gitignore/218a941be92679ce67d0484547e3e142b2f5f6f0/Global/SBT.gitignore
 
-# CoffeeScript
-compiled/
+# Simple Build Tool
+# http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
-# Python
-__pycache__/
-.pydevproject
-
-# Haskell
-*.hi
-*.o
-.dist-buildwrapper/
-
-# Scala
-.ensime
-.ensime_cache/
-
-# Erlang
-*.beam
-
-# IntelliJ
-.idea/
-
-# Eclipse
-.project
-.classpath
-.settings
-
-# others
+dist/*
 target/
-*.exe
-ensime.sbt
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
+
+.idea
+.bsp
