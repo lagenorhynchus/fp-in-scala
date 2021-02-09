@@ -21,7 +21,7 @@ object MyModule {
     @annotation.tailrec
     def go(n: Int, acc: Int): Int =
       if (n <= 0) acc
-      else go(n-1, n*acc)
+      else go(n - 1, n * acc)
 
     go(n, 1)
   }
@@ -78,7 +78,10 @@ object TestFib {
   // test implementation of `fib`
   def main(args: Array[String]): Unit = {
     println("Expected: 0, 1, 1, 2, 3, 5, 8")
-    println("Actual:   %d, %d, %d, %d, %d, %d, %d".format(fib(0), fib(1), fib(2), fib(3), fib(4), fib(5), fib(6)))
+    println(
+      "Actual:   %d, %d, %d, %d, %d, %d, %d"
+        .format(fib(0), fib(1), fib(2), fib(3), fib(4), fib(5), fib(6))
+    )
   }
 }
 
@@ -114,9 +117,9 @@ object MonomorphicBinarySearch {
       else {
         val mid2 = (low + high) / 2
         val d = ds(mid2) // We index into an array using the same
-                         // syntax as function application
+        // syntax as function application
         if (d == key) mid2
-        else if (d > key) go(low, mid2, mid2-1)
+        else if (d > key) go(low, mid2, mid2 - 1)
         else go(mid2 + 1, mid2, high)
       }
     }
@@ -129,7 +132,7 @@ object PolymorphicFunctions {
 
   // Here's a polymorphic version of `binarySearch`, parameterized on
   // a function for testing whether an `A` is greater than another `A`.
-  def binarySearch[A](as: Array[A], key: A, gt: (A,A) => Boolean): Int = {
+  def binarySearch[A](as: Array[A], key: A, gt: (A, A) => Boolean): Int = {
     @annotation.tailrec
     def go(low: Int, mid: Int, high: Int): Int = {
       if (low > high) -mid - 1
@@ -137,8 +140,8 @@ object PolymorphicFunctions {
         val mid2 = (low + high) / 2
         val a = as(mid2)
         val greater = gt(a, key)
-        if (!greater && !gt(key,a)) mid2
-        else if (greater) go(low, mid2, mid2-1)
+        if (!greater && !gt(key, a)) mid2
+        else if (greater) go(low, mid2, mid2 - 1)
         else go(mid2 + 1, mid2, high)
       }
     }
@@ -160,7 +163,7 @@ object PolymorphicFunctions {
   // Polymorphic functions are often so constrained by their type
   // that they only have one implementation! Here's an example:
 
-  def partial1[A,B,C](a: A, f: (A,B) => C): B => C =
+  def partial1[A, B, C](a: A, f: (A, B) => C): B => C =
     (b: B) => f(a, b)
 
   // Exercise 2.3: Implement `curry`.
@@ -184,7 +187,7 @@ object PolymorphicFunctions {
   and uncurry and the two forms are in some sense "the same". In FP jargon,
   we say that they are _isomorphic_ ("iso" = same; "morphe" = shape, form),
   a term we inherit from category theory.
-  */
+   */
 
   // Exercise 2.5: Implement `compose`
 

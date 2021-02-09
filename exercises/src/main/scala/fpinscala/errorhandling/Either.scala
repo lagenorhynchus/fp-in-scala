@@ -1,9 +1,14 @@
 package fpinscala.errorhandling
 
+import scala.{
+  Option => _,
+  Either => _,
+  Left => _,
+  Right => _,
+  _
+} // hide std library `Option` and `Either`, since we are writing our own in this chapter
 
-import scala.{Option => _, Either => _, Left => _, Right => _, _} // hide std library `Option` and `Either`, since we are writing our own in this chapter
-
-sealed trait Either[+E,+A] {
+sealed trait Either[+E, +A] {
   // Exercise 4.6
   def map[B](f: A => B): Either[E, B] = ???
 
@@ -13,14 +18,15 @@ sealed trait Either[+E,+A] {
 
   def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] = ???
 }
-case class Left[+E](get: E) extends Either[E,Nothing]
-case class Right[+A](get: A) extends Either[Nothing,A]
+case class Left[+E](get: E) extends Either[E, Nothing]
+case class Right[+A](get: A) extends Either[Nothing, A]
 
 object Either {
   // Exercise 4.7
-  def traverse[E,A,B](es: List[A])(f: A => Either[E, B]): Either[E, List[B]] = ???
+  def traverse[E, A, B](es: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
+    ???
 
-  def sequence[E,A](es: List[Either[E,A]]): Either[E,List[A]] = ???
+  def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] = ???
 
   def mean(xs: IndexedSeq[Double]): Either[String, Double] =
     if (xs.isEmpty)
