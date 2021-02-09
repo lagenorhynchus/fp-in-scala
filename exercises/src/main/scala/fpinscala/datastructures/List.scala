@@ -49,21 +49,24 @@ object List { // `List` companion object. Contains functions for creating and wo
   def product2(ns: List[Double]) =
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
-  // Exercise 2
+  // Exercise 3.1
+  // TODO
+
+  // Exercise 3.2
   def tail[A](l: List[A]): List[A] =
     l match {
       case Nil => Nil
       case Cons(_, xs) => xs
     }
 
-  // Exercise 3
+  // Exercise 3.3
   def setHead[A](l: List[A], h: A): List[A] =
     l match {
       case Nil => Cons(h, Nil)
       case Cons(_, xs) => Cons(h, xs)
     }
 
-  // Exercise 4
+  // Exercise 3.4
   @annotation.tailrec
   def drop[A](l: List[A], n: Int): List[A] =
     if (n <= 0) l
@@ -72,7 +75,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(_, xs) => drop(xs, n - 1)
     }
 
-  // Exercise 5
+  // Exercise 3.5
   @annotation.tailrec
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] =
     l match {
@@ -81,7 +84,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case _ => l
     }
 
-  // Exercise 6
+  // Exercise 3.6
   def init[A](l: List[A]): List[A] =
     l match {
       case Nil => Nil
@@ -89,11 +92,17 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(x, xs) => Cons(x, init(xs))
     }
 
-  // Exercise 9
+  // Exercise 3.7
+  // TODO
+
+  // Exercise 3.8
+  // TODO
+
+  // Exercise 3.9
   def length[A](l: List[A]): Int =
     foldRight(l, 0)((_, acc) => acc + 1)
 
-  // Exercise 10
+  // Exercise 3.10
   @annotation.tailrec
   def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B =
     l match {
@@ -101,57 +110,60 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
     }
 
-  // Exercise 11
+  // Exercise 3.11
   def sum3(ns: List[Int]): Int =
     foldLeft(ns, 0)(_ + _)
 
   def product3(ns: List[Double]): Double =
     foldLeft(ns, 1.0)(_ * _)
 
-  // Exercise 12
+  // TODO
+  def length2[A](l: List[A]): Int = ???
+
+  // Exercise 3.12
   def reverse[A](l: List[A]): List[A] =
     foldLeft(l, List[A]())((acc, x) => Cons(x, acc))
 
-  // Exercise 13
+  // Exercise 3.13
   def foldLeft2[A, B](l: List[A], z: B)(f: (B, A) => B): B =
     foldRight(reverse(l), z)((x, y) => f(y, x))
 
   def foldRight2[A, B](l: List[A], z: B)(f: (A, B) => B): B =
     foldLeft(reverse(l), z)((x, y) => f(y, x))
 
-  // Exercise 14
+  // Exercise 3.14
   def append2[A](a1: List[A], a2: List[A]): List[A] =
     foldRight(a1, a2)(Cons(_, _))
 
-  // Exercise 15
+  // Exercise 3.15
   def concat[A](ls: List[List[A]]): List[A] =
     foldRight(ls, Nil: List[A])(append)
 
-  // Exercise 16
+  // Exercise 3.16
   def add1(ns: List[Int]): List[Int] =
     foldRight(ns, List[Int]())((x, xs) => Cons(x + 1, xs))
 
-  // Exercise 17
+  // Exercise 3.17
   def doubleToString(ns: List[Double]): List[String] =
     foldRight(ns, Nil: List[String])((n, acc) => Cons(n.toString, acc))
 
-  // Exercise 18
+  // Exercise 3.18
   def map[A,B](l: List[A])(f: A => B): List[B] =
     foldRight(l, Nil: List[B])((x, acc) => Cons(f(x), acc))
 
-  // Exercise 19
+  // Exercise 3.19
   def filter[A](l: List[A])(f: A => Boolean): List[A] =
     foldRight(l, Nil: List[A])((x, acc) => if (f(x)) Cons(x, acc) else acc)
 
-  // Exercise 20
+  // Exercise 3.20
   def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] =
     concat(map(l)(f))
 
-  // Exercise 21
+  // Exercise 3.21
   def filter2[A](l: List[A])(f: A => Boolean): List[A] =
     flatMap(l)(x => if (f(x)) List(x) else Nil)
 
-  // Exercise 22
+  // Exercise 3.22
   def addEach(a1: List[Int], a2: List[Int]): List[Int] =
     (a1, a2) match {
       case (Nil, _) => Nil
@@ -159,7 +171,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case (Cons(x, xs), Cons(y, ys)) => Cons(x + y, addEach(xs, ys))
     }
 
-  // Exercise 23
+  // Exercise 3.23
   def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] =
     (as, bs) match {
       case (Nil, _) => Nil
@@ -167,7 +179,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case (Cons(x, xs), Cons(y, ys)) => Cons(f(x, y), zipWith(xs, ys)(f))
     }
 
-  // Exercise 24
+  // Exercise 3.24
   @annotation.tailrec
   def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
     sup match {

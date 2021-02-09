@@ -4,7 +4,7 @@ package fpinscala.errorhandling
 import scala.{Option => _, Either => _, Left => _, Right => _, _} // hide std library `Option` and `Either`, since we are writing our own in this chapter
 
 sealed trait Either[+E,+A] {
-  // Exercise 6
+  // Exercise 4.6
   def map[B](f: A => B): Either[E, B] = ???
 
   def flatMap[EE >: E, B](f: A => Either[EE, B]): Either[EE, B] = ???
@@ -17,7 +17,7 @@ case class Left[+E](get: E) extends Either[E,Nothing]
 case class Right[+A](get: A) extends Either[Nothing,A]
 
 object Either {
-  // Exercise 7
+  // Exercise 4.7
   def traverse[E,A,B](es: List[A])(f: A => Either[E, B]): Either[E, List[B]] = ???
 
   def sequence[E,A](es: List[Either[E,A]]): Either[E,List[A]] = ???
@@ -37,3 +37,6 @@ object Either {
     catch { case e: Exception => Left(e) }
 
 }
+
+// Exercise 4.8
+// TODO
