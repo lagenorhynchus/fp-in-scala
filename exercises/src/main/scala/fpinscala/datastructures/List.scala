@@ -30,6 +30,7 @@ object List { // `List` companion object. Contains functions for creating and wo
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
 
+  // Exercise 3.1
   val x = List(1, 2, 3, 4, 5) match {
     case Cons(x, Cons(2, Cons(4, _)))          => x
     case Nil                                   => 42
@@ -37,6 +38,7 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Cons(h, t)                            => h + sum(t)
     case _                                     => 101
   }
+  // => 3
 
   def append[A](a1: List[A], a2: List[A]): List[A] =
     a1 match {
@@ -61,15 +63,15 @@ object List { // `List` companion object. Contains functions for creating and wo
       _ * _
     ) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
-  // Exercise 3.1
-  // TODO
-
   // Exercise 3.2
   def tail[A](l: List[A]): List[A] =
     l match {
       case Nil         => Nil
       case Cons(_, xs) => xs
     }
+  // 入力が Nil の場合の実装上のその他の選択肢:
+  // - エラー終了する(例外をスローする)
+  // - 戻り値をOptionで包み、Noneを返す
 
   // Exercise 3.3
   def setHead[A](l: List[A], h: A): List[A] =
@@ -104,12 +106,19 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(_, Nil) => Nil
       case Cons(x, xs)  => Cons(x, init(xs))
     }
+  // このリストの実装は単方向連結リストであり、最終要素を除外したリストを得るにはリスト全体を走査し再構築する必要がある。
 
   // Exercise 3.7
-  // TODO
+  // この foldRight の実装では入力のリストを最終要素まで評価しなければならないため、特定の条件で再帰を中止して値を返すようなことはできない。
 
   // Exercise 3.8
-  // TODO
+  /*
+  foldRight の引数 z に Nil 、f に Cons(_, _) を指定すると、もとのリストがそのまま得られる。
+
+  foldRight(List(1, 2, 3), Nil: List[Int])(Cons(_, _)) == List(1, 2, 3)
+
+  foldRight とはリストのデータコンストラクタ Nil, Cons を引数 z, f で置き換える操作と考えることができる。
+   */
 
   // Exercise 3.9
   def length[A](l: List[A]): Int =
@@ -130,8 +139,7 @@ object List { // `List` companion object. Contains functions for creating and wo
   def product3(ns: List[Double]): Double =
     foldLeft(ns, 1.0)(_ * _)
 
-  // TODO
-  def length2[A](l: List[A]): Int = ???
+  def length2[A](l: List[A]): Int = foldLeft(l, 0)((c, _) => c + 1)
 
   // Exercise 3.12
   def reverse[A](l: List[A]): List[A] =
