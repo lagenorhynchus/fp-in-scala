@@ -13,8 +13,16 @@ project/plugins/project/
 .cache
 .lib/
 
+# IntelliJ
+
 .idea
 .bsp
+
+# Metals
+
+.bloop/
+.metals/
+metals.sbt
 
 ### https://raw.github.com/github/gitignore/218a941be92679ce67d0484547e3e142b2f5f6f0/Leiningen.gitignore
 
@@ -32,5 +40,7 @@ pom.xml.asc
 .lein-failures
 .nrepl-port
 .cpcache/
+
+# clj-kondo
 
 .clj-kondo/.cache
